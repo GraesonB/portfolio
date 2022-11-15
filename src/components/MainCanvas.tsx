@@ -2,9 +2,12 @@ import { Canvas } from "@react-three/fiber";
 
 export default function MainCanvas() {
   return(
-    <div className="border">
+    <div className="border-red-700 w-screen h-screen border absolute">
       <Canvas>
-
+        <mesh>
+          <icosahedronGeometry args={[2,50]} />
+          <meshStandardMaterial />
+        </mesh>
       </Canvas>
     </div>
   )

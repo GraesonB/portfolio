@@ -6,11 +6,10 @@ import MainCanvas from './components/MainCanvas'
 export default function App() {
   
   return (
-    <div className="flex justify-center items-center w-full h-screen border">
-      
+    <div className="flex justify-center items-center w-full h-screen">
+      <MainCanvas />
       <div className="flex flex-column border w-full md:w-11/12 lg:w-4/5 h-full flex-col">
-        <h1 className='border text-center'>HELLO WORLD</h1>
-        <MainCanvas />
+        <h1 className='text-center'>HELLO WORLD</h1>
       </div>
 
     </div>
