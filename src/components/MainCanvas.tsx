@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { ShaderMaterial } from "@react-three/fiber";
+
 
 export default function MainCanvas() {
   return(
