@@ -1,4 +1,5 @@
 import { Canvas } from "@react-three/fiber";
+import { ShaderMaterial } from "@react-three/fiber";
 
 export default function MainCanvas() {
   return(
@@ -6,7 +7,7 @@ export default function MainCanvas() {
       <Canvas>
         <mesh>
           <icosahedronGeometry args={[2,50]} />
-          <meshStandardMaterial />
+          <shaderMaterial />
         </mesh>
       </Canvas>
     </div>
