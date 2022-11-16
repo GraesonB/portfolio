@@ -33,11 +33,12 @@ export default function MainSphere() {
 
   return(
     <mesh ref={sphereRef} rotation={[1, 0, 0]}>
-      <icosahedronGeometry args={[8,50]} />
+      <icosahedronGeometry args={[10,150]} />
       <shaderMaterial args={[{
         uniforms: {
           time: {value: 0.0},
-          mousePos: {value: new Vector2(mousePos[0], mousePos[1])}
+          mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
+          fresnelMod: {value: 6.0}
         },
         vertexShader: vertexShader,
         fragmentShader: fragmentShader
