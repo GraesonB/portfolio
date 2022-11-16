@@ -15,7 +15,7 @@ export default function App() {
         </Canvas>
       </div>
       <div className="flex justify-center text-8xl flex-column w-full md:w-11/12 lg:w-4/5 h-full flex-col">
-        <h1 className='text-center text-[#DCE6D2]'>HELLO<b>WORLD</b></h1>
+        <h1 className='text-center font-thin text-[#DCE6D2]'>GRAESON<b>BERGEN</b></h1>
       </div>
 
     </div>
