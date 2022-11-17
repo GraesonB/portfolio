@@ -1,32 +1,56 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useState, useEffect, useRef } from 'react';
 import { Mesh, Vector2 } from 'three';
+
 import vertexShader from '../shaders/main_sphere/vertex.glsl';
 import fragmentShader from '../shaders/main_sphere/fragment.glsl';
+import { lerpVec } from '../curves/lerp';
+import smoothStep from '../curves/smooth-step';
 
 type SphereProps = {
-  rotation: [number, number, number],
+  desiredRotation: [number, number, number],
   mousePos: [number, number]
 }
 
-export default function MainSphere({rotation, mousePos}: SphereProps) {
+const animationLength = 2;
+
+export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
   const sphereRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
+  const [rotatingTo, setRotatingTo] = useState<[number, number, number]>(desiredRotation);
+  const [rotatingFrom, setRotatingFrom] = useState<[number, number, number]>(desiredRotation);
+  const [animating, setAnimating] = useState(false);
+  const [animationTimer, setAnimationTimer] = useState(0);
 
   
 
   useFrame(() => {
-    setTotalTime(totalTime + (Date.now() - lastTick) / 1000) // Total elapsed time in seconds
+    const elapsedSeconds = (Date.now() - lastTick) / 1000;
+    setTotalTime(totalTime + (elapsedSeconds));
     if (sphereRef.current) {
+      const currentRotation = sphereRef.current.rotation.toArray();
       //@ts-ignore
       sphereRef.current.material.uniforms.time.value = totalTime;
+
+      if (currentRotation !== desiredRotation &&  !animating) {
+        setRotatingFrom(currentRotation);
+        setRotatingTo(desiredRotation);
+        setAnimating(true);
+        setAnimationTimer(animationLength);
+      } else if (animating) {
+        setAnimationTimer(animationTimer - elapsedSeconds);
+        const t = smoothStep(1 - animationTimer/animationLength);
+        const newa = lerpVec(rotatingFrom, rotatingTo, t);
+        sphereRef.current.rotation.set(...newa);
+      }
     }
+
     setLastTick(Date.now());
   })
 
   return(
-    <mesh ref={sphereRef} rotation={rotation}>
+    <mesh ref={sphereRef} rotation={[1,0,0]}>
       <icosahedronGeometry args={[11,100]} />
       <shaderMaterial args={[{
         uniforms: {

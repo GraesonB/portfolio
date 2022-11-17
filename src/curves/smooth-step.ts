@@ -1,4 +1,4 @@
-import lerp from './lerp'
+import  { lerp } from './lerp'
 
 export default function smoothStep(t: number) {
   const value1 = t * t;
