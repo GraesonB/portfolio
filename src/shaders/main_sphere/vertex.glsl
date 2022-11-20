@@ -48,16 +48,15 @@ void main() {
     mat3 xRotation = rotateX(rotation.x);
     mat3 yRotation = rotateY(rotation.y);
     mat3 zRotation = rotateZ(rotation.z);
+    vec3 rotatedNormal = normal * xRotation * yRotation * zRotation;
 
     vec3 localPosition = vec3(position);
     float t = sin(localPosition.y * 5.0 + time * 3.0);
     t = remap(t, -1.0, 1.0, 0.0, 0.45);
 
     localPosition += normal * t;
-    localPosition += normal * pow(max(0.0, dot(normal * xRotation * yRotation * zRotation, vec3(normalize(mousePos), 0.0))), 8.0);
-    localPosition += normal * pow(max(0.0, dot(normal, vec3(normalize(mousePos), 0.0))), 32.0) * 0.2;
+    localPosition += normal * pow(max(0.0, dot(rotatedNormal, vec3(normalize(mousePos), 0.0))), 8.0) * 1.5;
     localPosition = localPosition * xRotation * yRotation * zRotation;
-    vec3 rotatedNormal = normal * xRotation * yRotation * zRotation;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(localPosition, 1.0);
 
     vNormal = (modelMatrix * vec4(rotatedNormal, 0.0)).xyz; // normals in world space

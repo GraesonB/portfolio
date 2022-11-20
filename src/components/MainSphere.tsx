@@ -18,20 +18,26 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
   const sphereRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
-  const [rotatingTo, setRotatingTo] = useState<[number, number, number]>(desiredRotation);
-  const [rotatingFrom, setRotatingFrom] = useState<[number, number, number]>(desiredRotation);
-  const [animating, setAnimating] = useState(false);
-  const [animationTimer, setAnimationTimer] = useState(0);
 
+  const [currentRotation, setCurrentRotation] = useState([1,0,1]);
+  const [fromRotation, setFromRotation] = useState(currentRotation);
+  const [toRotation, setToRotation] = useState(currentRotation);
+  const [rotating, setRotating] = useState(false); // animation boolean flag
   
 
   useFrame(() => {
     const elapsedSeconds = (Date.now() - lastTick) / 1000;
     setTotalTime(totalTime + (elapsedSeconds));
     if (sphereRef.current) {
-      const currentRotation = sphereRef.current.rotation.toArray();
       //@ts-ignore
       sphereRef.current.material.uniforms.time.value = totalTime;
+
+      if (currentRotation != desiredRotation && !rotating) {
+        setRotating(true);
+        setToRotation(desiredRotation);
+        setFromRotation(currentRotation);
+      }
+
       
     }
 
@@ -46,7 +52,7 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
           time: {value: 0.0},
           mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
           fresnelMod: {value: 5.0},
-          rotation: {value: new Vector3(1.0, 0.0, 1.0)}
+          rotation: {value: new Vector3(currentRotation[0], currentRotation[1], currentRotation[2])}
         },
         vertexShader: vertexShader,
         fragmentShader: fragmentShader
