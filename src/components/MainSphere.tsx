@@ -19,7 +19,7 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
 
-  const [currentRotation, setCurrentRotation] = useState([1,0,1]);
+  const [currentRotation, setCurrentRotation] = useState([1,0,0]);
   const [fromRotation, setFromRotation] = useState(currentRotation);
   const [toRotation, setToRotation] = useState(currentRotation);
   const [rotating, setRotating] = useState(false); // animation boolean flag
