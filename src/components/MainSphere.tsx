@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useState, useEffect, useRef } from 'react';
-import { Mesh, Vector2 } from 'three';
+import { Mesh, Vector2, Vector3 } from 'three';
 
 import vertexShader from '../shaders/main_sphere/vertex.glsl';
 import fragmentShader from '../shaders/main_sphere/fragment.glsl';
@@ -32,31 +32,21 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
       const currentRotation = sphereRef.current.rotation.toArray();
       //@ts-ignore
       sphereRef.current.material.uniforms.time.value = totalTime;
-
-      if (currentRotation !== desiredRotation &&  !animating) {
-        setRotatingFrom(currentRotation);
-        setRotatingTo(desiredRotation);
-        setAnimating(true);
-        setAnimationTimer(animationLength);
-      } else if (animating) {
-        setAnimationTimer(animationTimer - elapsedSeconds);
-        const t = smoothStep(1 - animationTimer/animationLength);
-        const newa = lerpVec(rotatingFrom, rotatingTo, t);
-        sphereRef.current.rotation.set(...newa);
-      }
+      
     }
 
     setLastTick(Date.now());
   })
 
   return(
-    <mesh ref={sphereRef} rotation={[1,0,0]}>
-      <icosahedronGeometry args={[11,100]} />
+    <mesh ref={sphereRef}>
+      <icosahedronGeometry args={[11,120]} />
       <shaderMaterial args={[{
         uniforms: {
           time: {value: 0.0},
           mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
-          fresnelMod: {value: 5.0}
+          fresnelMod: {value: 5.0},
+          rotation: {value: new Vector3(1.0, 0.0, 1.0)}
         },
         vertexShader: vertexShader,
         fragmentShader: fragmentShader
