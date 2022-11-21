@@ -9,7 +9,8 @@ import smoothStep from '../curves/smooth-step';
 
 type SphereProps = {
   desiredRotation: [number, number, number],
-  mousePos: [number, number]
+  mousePos: [number, number],
+
 }
 
 const animationLength = 2;
@@ -19,7 +20,7 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
 
-  const [currentRotation, setCurrentRotation] = useState([1,1.5,0]);
+  const [currentRotation, setCurrentRotation] = useState([1,0.5,0]);
   const [fromRotation, setFromRotation] = useState(currentRotation);
   const [toRotation, setToRotation] = useState(currentRotation);
   const [rotating, setRotating] = useState(false); // animation boolean flag
@@ -31,6 +32,8 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
     if (sphereRef.current) {
       //@ts-ignore
       sphereRef.current.material.uniforms.time.value = totalTime;
+      sphereRef.current.position.setX(0);
+      sphereRef.current.position.setY(0);
 
       if (currentRotation != desiredRotation && !rotating) {
         setRotating(true);
@@ -46,12 +49,12 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
 
   return(
     <mesh ref={sphereRef}>
-      <icosahedronGeometry args={[4,150]} />
+      <icosahedronGeometry args={[3,150]} />
       <shaderMaterial args={[{
         uniforms: {
           time: {value: 0.0},
           mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
-          fresnelMod: {value: 5.0},
+          fresnelMod: {value: 2.5},
           rotation: {value: new Vector3(currentRotation[0], currentRotation[1], currentRotation[2])}
         },
         vertexShader: vertexShader,

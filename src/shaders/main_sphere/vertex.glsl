@@ -44,11 +44,11 @@ mat3 rotateZ(float rads) {
 } 
 
 void main() {
-    
+
     // rotations
-    mat3 xRotation = rotateX(sin(time * 0.05));
-    mat3 yRotation = rotateY(sin(time * 0.02));
-    mat3 zRotation = rotateZ(cos(time * 0.03));
+    mat3 xRotation = rotateX(rotation.x);
+    mat3 yRotation = rotateY(rotation.y);
+    mat3 zRotation = rotateZ(rotation.z);
     vec3 rotatedNormal = normal * xRotation * yRotation * zRotation;
 
     vec3 localPosition = vec3(position);
