@@ -29,7 +29,7 @@ export default function App() {
         </Canvas>
       </div>
       <div className="flex justify-center items-center text-7xl w-full md:w-11/12 lg:w-4/5 h-full flex-col flex-wrap">
-        <h1 className='text-center absolute font-thin text-[#DCE6D2]'>GRAESON<b>BERGEN</b></h1>
+        <h1 className='text-center font-thin text-[#DCE6D2]'>GRAESON<b>BERGEN</b></h1>
       </div>
       <ul className='flex flex-col justify-center items-end text-5xl absolute w-full md:w-11/12 lg:w-4/5 h-full self-end'>
         <h3 className='text-center hover:text-[#CD1414] font-thin text-[#DCE6D2] mb-10 mt-10'>projects</h3>
