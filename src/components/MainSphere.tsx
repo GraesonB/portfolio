@@ -10,12 +10,13 @@ import smoothStep from '../curves/smooth-step';
 type SphereProps = {
   desiredRotation: [number, number, number],
   mousePos: [number, number],
+  position: [number, number, number]
 
 }
 
 const animationLength = 2;
 
-export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
+export default function MainSphere({desiredRotation, mousePos, position}: SphereProps) {
   const sphereRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
@@ -32,8 +33,8 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
     if (sphereRef.current) {
       //@ts-ignore
       sphereRef.current.material.uniforms.time.value = totalTime;
-      sphereRef.current.position.setX(0);
-      sphereRef.current.position.setY(0);
+      sphereRef.current.position.setX(position[0]);
+      sphereRef.current.position.setY(position[1]);
 
       if (currentRotation != desiredRotation && !rotating) {
         setRotating(true);
@@ -55,7 +56,7 @@ export default function MainSphere({desiredRotation, mousePos}: SphereProps) {
           time: {value: 0.0},
           mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
           fresnelMod: {value: 2.5},
-          rotation: {value: new Vector3(currentRotation[0], currentRotation[1], currentRotation[2])}
+          rotation: {value: new Vector3(...currentRotation)}
         },
         vertexShader: vertexShader,
         fragmentShader: fragmentShader
