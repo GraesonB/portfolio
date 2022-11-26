@@ -23,25 +23,20 @@ export default function MainSphere({desiredRotation, mousePos, position, radius}
   const [lastTick, setLastTick] = useState(Date.now());
 
   const [currentRotation, setCurrentRotation] = useState([1,0.5,0]);
-  const [fromRotation, setFromRotation] = useState(currentRotation);
-  const [toRotation, setToRotation] = useState(currentRotation);
-  const [rotating, setRotating] = useState(false); // animation boolean flag
-  
+  const [mouseDistance, setMouseDistance] = useState(Math.sqrt(mousePos[0]**2 + mousePos[1]**2));
 
   useFrame(() => {
     const elapsedSeconds = (Date.now() - lastTick) / 1000;
     setTotalTime(totalTime + (elapsedSeconds));
+    setMouseDistance((Math.abs(mousePos[0]) + Math.abs(mousePos[1])) / 500)
     if (sphereRef.current) {
       //@ts-ignore
       sphereRef.current.material.uniforms.time.value = totalTime;
+      //@ts-ignore
+      sphereRef.current.material.uniforms.mousePullStrength.value = mouseDistance >= 1? 1: mouseDistance;
+
       sphereRef.current.position.setX(position[0]);
       sphereRef.current.position.setY(position[1]);
-
-      if (currentRotation != desiredRotation && !rotating) {
-        setRotating(true);
-        setToRotation(desiredRotation);
-        setFromRotation(currentRotation);
-      }
 
       
     }
@@ -56,6 +51,7 @@ export default function MainSphere({desiredRotation, mousePos, position, radius}
         uniforms: {
           time: {value: 0.0},
           mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
+          mousePullStrength: {value: mouseDistance >= 1? 1: mouseDistance},
           fresnelMod: {value: 2.5},
           rotation: {value: new Vector3(...currentRotation)}
         },

@@ -4,6 +4,7 @@ varying vec3 vPosition;
 
 uniform float time;
 uniform vec2 mousePos;
+uniform float mousePullStrength;
 uniform vec3 rotation;
 
 float inverseLerp(float v, float min, float max) {
@@ -58,7 +59,7 @@ void main() {
     sinX = remap(sinX, -1.0, 1.0, 0.0, 0.45);
 
     localPosition += normal * sinY * sinX;
-    localPosition += normal * pow(max(0.0, dot(rotatedNormal, vec3(normalize(mousePos), 0.0))), 8.0) * 1.0;
+    localPosition += normal * pow(max(0.0, dot(rotatedNormal, vec3(normalize(mousePos), 0.0))), 8.0) * mousePullStrength;
     localPosition = localPosition * xRotation * yRotation * zRotation;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(localPosition, 1.0);
 
