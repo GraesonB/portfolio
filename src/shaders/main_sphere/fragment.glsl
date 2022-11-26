@@ -10,7 +10,7 @@ vec3 rgbToFloat(vec3 color) {
 
 void main() {
     vec3 sphereColour = rgbToFloat(vec3(20.0, 40.0, 30.0));
-    vec3 fresnelColour = rgbToFloat(vec3(80.0, 40.0, 60.0));
+    vec3 fresnelColour = rgbToFloat(vec3(150.0, 165.0, 170.0));
     vec3 viewDir = normalize(cameraPosition - vPosition);
     vec3 zDir = vec3(0.0,0.0,1.0);
     //viewDir = mix(viewDir, zDir, 0.7);

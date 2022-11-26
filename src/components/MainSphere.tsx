@@ -10,13 +10,14 @@ import smoothStep from '../curves/smooth-step';
 type SphereProps = {
   desiredRotation: [number, number, number],
   mousePos: [number, number],
-  position: [number, number, number]
+  position: [number, number, number],
+  radius: number
 
 }
 
 const animationLength = 2;
 
-export default function MainSphere({desiredRotation, mousePos, position}: SphereProps) {
+export default function MainSphere({desiredRotation, mousePos, position, radius}: SphereProps) {
   const sphereRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
@@ -50,7 +51,7 @@ export default function MainSphere({desiredRotation, mousePos, position}: Sphere
 
   return(
     <mesh ref={sphereRef}>
-      <icosahedronGeometry args={[3,150]} />
+      <icosahedronGeometry args={[radius,100]} />
       <shaderMaterial args={[{
         uniforms: {
           time: {value: 0.0},
