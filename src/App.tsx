@@ -23,20 +23,20 @@ export default function App() {
   return (
 
     <div className="flex justify-center items-center w-full h-screen">
-      <div className="w-screen h-screen absolute mix-blend-difference bg-[#14281E]">
-        <Canvas camera={{position: [0,0,65], fov: 10}}>
-          <MainSphere desiredRotation={sphereRotation} mousePos={mousePos} position={[-2,0,0]} radius={3}  />
-          <MainSphere desiredRotation={sphereRotation} mousePos={mousePos} position={[15,0,0]} radius={10} />
+      <div className="w-[24rem] h-[24rem] sm:w-[32rem] sm:h-[32rem] lg:w-[32rem] lg:h-[32rem] absolute mix-blend-difference">
+        <Canvas camera={{position: [0,0,50], fov: 10}}>
+          <MainSphere desiredRotation={sphereRotation} mousePos={mousePos} position={[0,0,0]} radius={3}  />
         </Canvas>
       </div>
-      <div className="flex justify-center items-center text-7xl w-full md:w-11/12 lg:w-4/5 h-full flex-col flex-wrap mr-64">
+      <div className="flex justify-center items-center text-5xl sm:text-6xl lg:text-6xl w-full md:w-11/12 lg:w-4/5 h-full flex-col flex-wrap">
         <h1 className='text-center font-thin text-[#CDF5F0]'>GRAESON<b>BERGEN</b></h1>
-        <h1 className="text-4xl font-thin text-[#CDF5F0]">full stack developer</h1>
+        <h1 className="text-2xl sm:text-4xl lg:text-4xl font-thin text-[#CDF5F0]">full stack developer</h1>
       </div>
-      <ul className='flex flex-col justify-center items-end text-5xl absolute w-full md:w-11/12 lg:w-4/5 h-full self-end'>
-        <h3 className='text-center hover:text-[#14501E] font-thin text-[#CDF5F0] mb-10 mt-10'>projects</h3>
-        <h3 className='text-center hover:text-[#14501E] font-thin text-[#CDF5F0] mb-10 mt-10'>contact</h3>
-        <h3 className='text-center hover:text-[#14501E] font-thin text-[#CDF5F0] mb-10 mt-10'>resume</h3>
+    
+      <ul className='flex flex-col justify-center items-end text-5xl absolute w-full lg:w-11/12 xl:4/5 h-full self-end invisible lg:visible'>
+        <h3 className='text-center hover:text-[#8FABA8] font-thin text-[#CDF5F0] mb-10 mt-10'>projects</h3>
+        <h3 className='text-center hover:text-[#8FABA8] font-thin text-[#CDF5F0] mb-10 mt-10'>contact</h3>
+        <h3 className='text-center hover:text-[#8FABA8] font-thin text-[#CDF5F0] mb-10 mt-10'>resume</h3>
       </ul>
     </div>
   )
