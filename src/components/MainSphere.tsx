@@ -12,7 +12,6 @@ type SphereProps = {
   mousePos: [number, number],
   position: [number, number, number],
   radius: number
-
 }
 
 const animationLength = 2;

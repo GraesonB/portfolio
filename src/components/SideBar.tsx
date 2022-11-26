@@ -12,7 +12,7 @@ export default function SideBar() {
       </div>
       <ul className='flex flex-col justify-center items-center w-full h-full p-16 top-0 z-10'>
         <Button text={'projects'} />
-        <Button text={'contact'} />
+        <Button text={'about me'} />
         <Button text={'resume'} />
       </ul>
     </div>
