@@ -26,9 +26,9 @@ export default function App() {
           <MainSphere desiredRotation={[0,0,0]} mousePos={mousePos} position={[0,0,0]} radius={3}  />
         </Canvas>
       </div>
-      <div className="flex justify-center items-center text-5xl sm:text-6xl lg:text-6xl 2xl:text-8xl w-full md:w-11/12 lg:w-4/5 h-full flex-col flex-wrap">
+      <div className="flex justify-center items-center text-[2.5rem] sm:text-6xl lg:text-6xl 2xl:text-8xl w-full md:w-11/12 lg:w-4/5 h-full flex-col flex-wrap">
         <h1 className='text-center font-thin text-[#CDF5F0]'>GRAESON<b>BERGEN</b></h1>
-        <h1 className="text-2xl sm:text-4xl lg:text-4xl 2xl:text-5xl font-thin text-[#CDF5F0]">full stack developer</h1>
+        <h1 className="text-xl sm:text-4xl lg:text-4xl 2xl:text-5xl font-thin text-[#CDF5F0] mt-1 sm:mt-0">full stack developer</h1>
       </div>
     
       <SideBar />
