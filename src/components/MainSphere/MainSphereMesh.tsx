@@ -21,18 +21,17 @@ export default function MainSphereMesh({canvasPos, desiredRotation, position, ra
   const [lastTick, setLastTick] = useState(Date.now());
 
   const mousePos = useContext(MousePosContext);
-  const [mousePosRel, setMousePosRel] = useState(
-    
-  )
+  const [mousePosRel, setMousePosRel] = useState<[number, number]>([(mousePos[0]- canvasPos[0]), -(mousePos[1] - canvasPos[1])]);
 
   const [currentRotation, setCurrentRotation] = useState([1,0.5,0]);
-  const [mouseDistance, setMouseDistance] = useState(Math.sqrt(mousePos[0]**2 + mousePos[1]**2));
+  const [mouseDistance, setMouseDistance] = useState(Math.sqrt(mousePosRel[0]**2 + mousePosRel[1]**2));
 
 
   useFrame(() => {
     const elapsedSeconds = (Date.now() - lastTick) / 1000;
     setTotalTime(totalTime + (elapsedSeconds));
-    setMouseDistance((Math.abs(mousePos[0]) + Math.abs(mousePos[1])) / 500)
+    setMouseDistance((Math.abs(mousePosRel[0]) + Math.abs(mousePosRel[1])) / 500);
+    setMousePosRel([(mousePos[0]- canvasPos[0]), -(mousePos[1] - canvasPos[1])]);
     if (sphereRef.current) {
       //@ts-ignore
       sphereRef.current.material.uniforms.time.value = totalTime;
@@ -41,8 +40,6 @@ export default function MainSphereMesh({canvasPos, desiredRotation, position, ra
 
       sphereRef.current.position.setX(position[0]);
       sphereRef.current.position.setY(position[1]);
-
-      
     }
 
     setLastTick(Date.now());
@@ -54,7 +51,7 @@ export default function MainSphereMesh({canvasPos, desiredRotation, position, ra
       <shaderMaterial args={[{
         uniforms: {
           time: {value: 0.0},
-          mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
+          mousePos: {value: new Vector2(mousePosRel[0], mousePosRel[1])},
           mousePullStrength: {value: mouseDistance >= 1? 1: mouseDistance},
           fresnelMod: {value: 2.5},
           rotation: {value: new Vector3(...currentRotation)}
