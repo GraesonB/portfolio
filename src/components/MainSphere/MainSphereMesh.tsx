@@ -10,18 +10,18 @@ import smoothStep from '../../curves/smooth-step';
 
 type SphereProps = {
   desiredRotation: [number, number, number],
-  canvasPos: [number, number]
+  center: [number, number]
   position: [number, number, number],
   radius: number
 }
 
-export default function MainSphereMesh({canvasPos, desiredRotation, position, radius}: SphereProps) {
+export default function MainSphereMesh({center, desiredRotation, position, radius}: SphereProps) {
   const sphereRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
 
   const mousePos = useContext(MousePosContext);
-  const [mousePosRel, setMousePosRel] = useState<[number, number]>([(mousePos[0]- canvasPos[0]), -(mousePos[1] - canvasPos[1])]);
+  const [mousePosRel, setMousePosRel] = useState<[number, number]>([(mousePos[0]- center[0]), -(mousePos[1] - center[1])]);
 
   const [currentRotation, setCurrentRotation] = useState([1,0.5,0]);
   const [mouseDistance, setMouseDistance] = useState(Math.sqrt(mousePosRel[0]**2 + mousePosRel[1]**2));
@@ -31,7 +31,7 @@ export default function MainSphereMesh({canvasPos, desiredRotation, position, ra
     const elapsedSeconds = (Date.now() - lastTick) / 1000;
     setTotalTime(totalTime + (elapsedSeconds));
     setMouseDistance((Math.abs(mousePosRel[0]) + Math.abs(mousePosRel[1])) / 500);
-    setMousePosRel([(mousePos[0]- canvasPos[0]), -(mousePos[1] - canvasPos[1])]);
+    setMousePosRel([(mousePos[0]- center[0]), -(mousePos[1] - center[1])]);
     if (sphereRef.current) {
       //@ts-ignore
       sphereRef.current.material.uniforms.time.value = totalTime;

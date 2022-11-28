@@ -21,7 +21,7 @@ export default function MainSphere() {
   return (
     <div ref={sphereRef} className='w-full h-full'>
       <Canvas camera={{position: [0,0,50], fov: 10}}>
-        <MainSphereMesh canvasPos={center} desiredRotation={[0,0,0]} position={[0,0,0]} radius={3}  />
+        <MainSphereMesh center={center} desiredRotation={[0,0,0]} position={[0,0,0]} radius={3}  />
       </Canvas>
     </div>
   );
