@@ -10,7 +10,7 @@ type ButtonProps = {
 
 export default function Button({ text }: ButtonProps) {
   const planeRef = useRef(null);
-  const [center, setCenter] = useState([0,0]);
+  const [center, setCenter] = useState<[number, number]>([0,0]);
 
   const mousePos = useContext(MousePosContext);
 
@@ -28,7 +28,7 @@ export default function Button({ text }: ButtonProps) {
     <div className="flex justify-center items-center m-16 p-2 w-64 border-[#CDF5F0]">
       <div ref={planeRef} className="absolute border h-24">
         <Canvas camera={{position: [0,0,50], fov: 10}}>
-            <ButtonMesh position={[0,0,0]} height={9} width={40}  />
+            <ButtonMesh center={center} position={[0,0,0]} height={9} width={40}  />
         </Canvas>
       </div>
     </div>

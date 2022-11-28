@@ -10,12 +10,13 @@ import { lerpVec } from '../../curves/lerp';
 import smoothStep from '../../curves/smooth-step';
 
 type ButtonPlaneProps = {
+  center: [number, number]
   position: [number, number, number],
   height: number,
   width: number
 }
 
-export default function ButtonMesh({position, height, width}: ButtonPlaneProps) {
+export default function ButtonMesh({center, position, height, width}: ButtonPlaneProps) {
   const planeRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
@@ -36,7 +37,7 @@ export default function ButtonMesh({position, height, width}: ButtonPlaneProps) 
     }
 
     setLastTick(Date.now());
-  })
+  });
 
   return(
     <mesh ref={planeRef}>
