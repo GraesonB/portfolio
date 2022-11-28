@@ -18,13 +18,17 @@ export default function Button({ text }: ButtonProps) {
   useEffect(() => {
     if (planeRef.current !== null) setCenter(elemCenter(planeRef.current));
   }, [planeRef]);
-  
 
+  const resize = () => {
+    if (planeRef.current !== null) setCenter(elemCenter(planeRef.current));
+  } 
+  window.addEventListener('resize', resize);
+  
   return (
     <div className="flex justify-center items-center m-16 p-2 w-64 border-[#CDF5F0]">
       <div ref={planeRef} className="absolute border h-24">
         <Canvas camera={{position: [0,0,50], fov: 10}}>
-            <ButtonMesh  position={[0,0,0]} height={9} width={40}  />
+            <ButtonMesh position={[0,0,0]} height={9} width={40}  />
         </Canvas>
       </div>
     </div>
