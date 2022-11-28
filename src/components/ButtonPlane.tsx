@@ -3,61 +3,49 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { Mesh, Vector2, Vector3 } from 'three';
 
 import { MousePosContext } from '../contexts/MousePosContext';
-import vertexShader from '../shaders/main_sphere/vertex.glsl';
-import fragmentShader from '../shaders/main_sphere/fragment.glsl';
+
+import vertexShader from '../shaders/button_plane/vertex.glsl';
+import fragmentShader from '../shaders/button_plane/fragment.glsl';
 import { lerpVec } from '../curves/lerp';
 import smoothStep from '../curves/smooth-step';
 
-type SphereProps = {
-  desiredRotation: [number, number, number],
-  canvasPos: [number, number]
+type ButtonPlaneProps = {
   position: [number, number, number],
-  radius: number
+  height: number,
+  width: number
 }
 
-export default function MainSphere({canvasPos, desiredRotation, position, radius}: SphereProps) {
-  const sphereRef = useRef<Mesh>(null);
+export default function ButtonPlane({position, height, width}: ButtonPlaneProps) {
+  const planeRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
-
   const mousePos = useContext(MousePosContext);
-  const [mousePosRel, setMousePosRel] = useState(
-    
-  )
 
   const [currentRotation, setCurrentRotation] = useState([1,0.5,0]);
   const [mouseDistance, setMouseDistance] = useState(Math.sqrt(mousePos[0]**2 + mousePos[1]**2));
-
 
   useFrame(() => {
     const elapsedSeconds = (Date.now() - lastTick) / 1000;
     setTotalTime(totalTime + (elapsedSeconds));
     setMouseDistance((Math.abs(mousePos[0]) + Math.abs(mousePos[1])) / 500)
-    if (sphereRef.current) {
+    if (planeRef.current) {
       //@ts-ignore
-      sphereRef.current.material.uniforms.time.value = totalTime;
+      planeRef.current.material.uniforms.time.value = totalTime;
       //@ts-ignore
-      sphereRef.current.material.uniforms.mousePullStrength.value = mouseDistance >= 1? 1: mouseDistance;
-
-      sphereRef.current.position.setX(position[0]);
-      sphereRef.current.position.setY(position[1]);
-
-      
+      planeRef.current.material.uniforms.mousePullStrength.value = mouseDistance >= 1? 1: mouseDistance;
     }
 
     setLastTick(Date.now());
   })
 
   return(
-    <mesh ref={sphereRef}>
-      <icosahedronGeometry args={[radius,100]} />
+    <mesh ref={planeRef}>
+      <planeGeometry args={[width,height,4,4]} />
       <shaderMaterial args={[{
         uniforms: {
           time: {value: 0.0},
           mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
-          mousePullStrength: {value: mouseDistance >= 1? 1: mouseDistance},
-          fresnelMod: {value: 2.5},
-          rotation: {value: new Vector3(...currentRotation)}
+          mousePullStrength: {value: mouseDistance >= 1? 1: mouseDistance}
         },
         vertexShader: vertexShader,
         fragmentShader: fragmentShader
