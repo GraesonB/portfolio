@@ -20,7 +20,7 @@ export default function App() {
   // mouse stuff
   const [mousePos, setMousePos] = useState<[number, number]>([0,0])
   const handleMouseMove = (e: MousePosition) => {
-    console.log(`mouse coords: ${e.clientX}, ${e.clientY}`)
+    //console.log(`mouse coords: ${e.clientX}, ${e.clientY}`)
     setMousePos([e.clientX - (window.innerWidth / 2), -(e.clientY - (window.innerHeight / 2))]);
   }
   window.addEventListener('mousemove', handleMouseMove);
