@@ -2,11 +2,11 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { Mesh, Vector2, Vector3 } from 'three';
 
-import { MousePosContext } from '../contexts/MousePosContext';
-import vertexShader from '../shaders/main_sphere/vertex.glsl';
-import fragmentShader from '../shaders/main_sphere/fragment.glsl';
-import { lerpVec } from '../curves/lerp';
-import smoothStep from '../curves/smooth-step';
+import { MousePosContext } from '../../contexts/MousePosContext';
+import vertexShader from '../../shaders/main_sphere/vertex.glsl';
+import fragmentShader from '../../shaders/main_sphere/fragment.glsl';
+import { lerpVec } from '../../curves/lerp';
+import smoothStep from '../../curves/smooth-step';
 
 type SphereProps = {
   desiredRotation: [number, number, number],
@@ -15,7 +15,7 @@ type SphereProps = {
   radius: number
 }
 
-export default function MainSphere({canvasPos, desiredRotation, position, radius}: SphereProps) {
+export default function MainSphereMesh({canvasPos, desiredRotation, position, radius}: SphereProps) {
   const sphereRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());

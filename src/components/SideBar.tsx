@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber'
-import MainSphere from './MainSphere'
-import Button from './Button'
+import MainSphere from './MainSphere/MainSphereMesh'
+import Button from './Button/Button'
 
 export default function SideBar() {
   return (

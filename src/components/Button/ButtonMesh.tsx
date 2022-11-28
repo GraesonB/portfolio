@@ -2,12 +2,12 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { Mesh, Vector2, Vector3 } from 'three';
 
-import { MousePosContext } from '../contexts/MousePosContext';
+import { MousePosContext } from '../../contexts/MousePosContext';
 
-import vertexShader from '../shaders/button_plane/vertex.glsl';
-import fragmentShader from '../shaders/button_plane/fragment.glsl';
-import { lerpVec } from '../curves/lerp';
-import smoothStep from '../curves/smooth-step';
+import vertexShader from '../../shaders/button_plane/vertex.glsl';
+import fragmentShader from '../../shaders/button_plane/fragment.glsl';
+import { lerpVec } from '../../curves/lerp';
+import smoothStep from '../../curves/smooth-step';
 
 type ButtonPlaneProps = {
   position: [number, number, number],
@@ -15,7 +15,7 @@ type ButtonPlaneProps = {
   width: number
 }
 
-export default function ButtonPlane({position, height, width}: ButtonPlaneProps) {
+export default function ButtonMesh({position, height, width}: ButtonPlaneProps) {
   const planeRef = useRef<Mesh>(null);
   const [totalTime, setTotalTime] = useState(0);
   const [lastTick, setLastTick] = useState(Date.now());
