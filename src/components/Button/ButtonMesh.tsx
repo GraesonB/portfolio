@@ -23,12 +23,14 @@ export default function ButtonMesh({center, position, height, width}: ButtonPlan
   const mousePos = useContext(MousePosContext);
 
   const [currentRotation, setCurrentRotation] = useState([1,0.5,0]);
+  const [mousePosRel, setMousePosRel] = useState<[number, number]>([(mousePos[0]- center[0]), -(mousePos[1] - center[1])]);
   const [mouseDistance, setMouseDistance] = useState(Math.sqrt(mousePos[0]**2 + mousePos[1]**2));
 
   useFrame(() => {
     const elapsedSeconds = (Date.now() - lastTick) / 1000;
     setTotalTime(totalTime + (elapsedSeconds));
     setMouseDistance((Math.abs(mousePos[0]) + Math.abs(mousePos[1])) / 500)
+    setMousePosRel([(mousePos[0]- center[0]), -(mousePos[1] - center[1])]);
     if (planeRef.current) {
       //@ts-ignore
       planeRef.current.material.uniforms.time.value = totalTime;
@@ -41,11 +43,11 @@ export default function ButtonMesh({center, position, height, width}: ButtonPlan
 
   return(
     <mesh ref={planeRef}>
-      <planeGeometry args={[width,height,4,4]} />
+      <planeGeometry args={[width,height,30, 30]} />
       <shaderMaterial args={[{
         uniforms: {
           time: {value: 0.0},
-          mousePos: {value: new Vector2(mousePos[0], mousePos[1])},
+          mousePos: {value: new Vector2(mousePosRel[0], mousePosRel[1])},
           mousePullStrength: {value: mouseDistance >= 1? 1: mouseDistance}
         },
         vertexShader: vertexShader,

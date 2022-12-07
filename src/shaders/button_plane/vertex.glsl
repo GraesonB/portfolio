@@ -18,12 +18,11 @@ float remap(float v, float inMin, float inMax, float outMin, float outMax) {
 void main() {
 
     vec3 localPosition = vec3(position);
-    float sinY = sin(localPosition.y * 5.0 + time * 3.0);
-    float sinX = cos(localPosition.x * 4.0 + time * 1.0 + 53232.0);
-    sinY = remap(sinY, -1.0, 1.0, 0.0, 0.75);
-    sinX = remap(sinX, -1.0, 1.0, 0.0, 0.45);
 
-    localPosition += normal * sinY * sinX;
+    float mousePosDot = max(0.0,dot(normalize(localPosition.xy), normalize(mousePos)));
+    mousePosDot = pow(mousePosDot, 32.0);
+    localPosition += vec3(normalize(localPosition.xy), 0.0) * mousePosDot;
+
     localPosition += normal * pow(max(0.0, dot(normal, vec3(normalize(mousePos), 0.0))), 8.0) * mousePullStrength;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(localPosition, 1.0);
 

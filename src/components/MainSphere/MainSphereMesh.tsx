@@ -47,7 +47,7 @@ export default function MainSphereMesh({center, desiredRotation, position, radiu
 
   return(
     <mesh ref={sphereRef}>
-      <icosahedronGeometry args={[radius,100]} />
+      <icosahedronGeometry args={[radius,50]} />
       <shaderMaterial args={[{
         uniforms: {
           time: {value: 0.0},

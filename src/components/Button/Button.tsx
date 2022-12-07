@@ -26,11 +26,11 @@ export default function Button({ text }: ButtonProps) {
   
   return (
     <div className="flex justify-center items-center m-16 p-2 w-64 border-[#CDF5F0]">
-      <div ref={planeRef} className="absolute h-24">
-        {/* <Canvas camera={{position: [0,0,50], fov: 10}}>
+      <div ref={planeRef} className="absolute h-24 border">
+        <Canvas camera={{position: [0,0,100], fov: 10}}>
             <ButtonMesh center={center} position={[0,0,0]} height={9} width={40}  />
-        </Canvas> */}
-         <a className='block hover:text-[#8FABA8] font-thin text-[#CDF5F0] text-5xl pb-3'>{text}</a>
+        </Canvas>
+         {/* <a className='block hover:text-[#8FABA8] font-thin text-[#CDF5F0] text-5xl pb-3'>{text}</a> */}
       </div>
     </div>
   );
