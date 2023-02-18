@@ -34,7 +34,7 @@ export default function App() {
           <h1 className='text-center font-thin text-[#CDF5F0]'>GRAESON<b>BERGEN</b></h1>
           <h1 className="text-xl sm:text-4xl lg:text-4xl 2xl:text-5xl font-thin text-[#CDF5F0] mt-1 sm:mt-0">full stack developer</h1>
         </div>
-        <SideBar />
+        {/* <SideBar /> */}
       </div>
     </MousePosContext.Provider>
   )
